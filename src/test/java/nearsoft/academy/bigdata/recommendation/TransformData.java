@@ -1,5 +1,8 @@
 package nearsoft.academy.bigdata.recommendation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 /**
@@ -7,6 +10,10 @@ import java.io.*;
  */
 class TransformData
 {
+    //Logger
+    final static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
+
+    //Output Filename
     public String filenameOutput;
 
     //List Manage
@@ -70,7 +77,7 @@ class TransformData
             fw.close();
         }
         catch (IOException e){
-            System.out.print(e);
+            logger.error("Error opening file, error: " + e);
         }
     }
 }

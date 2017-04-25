@@ -12,6 +12,8 @@ import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.UserBasedRecommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
@@ -20,6 +22,9 @@ import java.util.*;
  * Created by AMDA on 29/03/2017.
  */
 public class MovieRecommender {
+
+    //Logger
+    final static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
 
     //Recommender
     DataModel model;
@@ -51,7 +56,7 @@ public class MovieRecommender {
             model = new FileDataModel(new File(transformData.filenameOutput));
         }
         catch (IOException e){
-            System.out.println(e);
+            logger.error("Datamodel couldn't be created, error: " + e);
         }
 
         this.filePath = filePath;
@@ -66,7 +71,7 @@ public class MovieRecommender {
             return (long)model.getNumItems();
         }
         catch (TasteException e){
-            System.out.println(e);
+            logger.error("Error retrieving total reviews, error: " + e);
         }
         return 0;
     }
@@ -76,7 +81,7 @@ public class MovieRecommender {
             return (long)model.getNumUsers();
         }
         catch (TasteException e){
-            System.out.println(e);
+            logger.error("Error retrieving total users, error: " + e);
         }
         return 0;
     }
@@ -101,7 +106,7 @@ public class MovieRecommender {
             }
         }
         catch (TasteException e){
-            System.out.print(e);
+            logger.error("Error building movie recommender, error: " + e);
         }
 
         return recommendationsList;

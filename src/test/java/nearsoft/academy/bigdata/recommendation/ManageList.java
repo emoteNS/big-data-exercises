@@ -19,31 +19,33 @@ class ManageList
 
         invertProductList = new HashMap<Long, String>();
         invertUserList = new HashMap<Long, String>();
-
-        productIndex = userIndex = 0;
     }
 
     public long addProduct( String idProd )
     {
+
         if( !productList.containsKey( idProd ) ){
             productIndex = productList.size() + 1;
             productList.put(idProd, productIndex);
             invertProductList.put(productIndex, idProd);
         }
-        else
-            productIndex = productList.get( idProd );
+        else {
+            productIndex = productList.get(idProd);
+        }
 
         return productIndex;
     }
 
     public long addUser( String idUser ){
+
         if( !userList.containsKey(idUser) ){
             userIndex = userList.size() + 1;
             userList.put(idUser, userIndex);
             invertUserList.put(userIndex, idUser);
         }
-        else
-            userIndex = userList.get( idUser );
+        else {
+            userIndex = userList.get(idUser);
+        }
 
         return userIndex;
     }
