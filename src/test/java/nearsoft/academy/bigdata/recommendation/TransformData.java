@@ -42,7 +42,8 @@ class TransformData
 
             StringBuilder sb = new StringBuilder();
 
-            int index = 0, totalIndexes = 0;
+            int index = 0;
+            int totalIndexes = 0;
 
             while( (line = br.readLine()) != null )
             {
