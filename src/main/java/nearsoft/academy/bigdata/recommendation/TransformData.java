@@ -8,33 +8,31 @@ import java.io.*;
 /**
  * Created by AMDA on 30/03/2017.
  */
-class TransformData
-{
+class TransformData {
     //Logger
     final static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
 
     //Output Filename
-    public String filenameOutput;
+    private String filenameOutput;
 
     //List Manage
-    public ManageList manageList = new ManageList();
+    private ManageList manageList = new ManageList();
 
-    public void setOutputFile(String file){
+    public void setOutputFile(String file) {
 
-        String [] temp = file.split("\\.");
+        String[] temp = file.split("\\.");
 
-        filenameOutput = temp[0] + "Output." + temp[1];
+        setFilenameOutput(temp[0] + "Output." + temp[1]);
     }
 
-    public void transformToPreferenceFile(String file)
-    {
-        try{
+    public void transformToPreferenceFile(String file) {
+        try {
             //Reader
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
             //Writer
-            FileWriter fw = new FileWriter(filenameOutput);
+            FileWriter fw = new FileWriter(getFilenameOutput());
             BufferedWriter bw = new BufferedWriter(fw);
 
             //Line control
@@ -45,19 +43,16 @@ class TransformData
             int index = 0;
             int totalIndexes = 0;
 
-            while( (line = br.readLine()) != null )
-            {
+            while ((line = br.readLine()) != null) {
                 if (line.split("/")[0].equals("product")) {
                     index++;
-                    sb.append( manageList.addProduct(line.split(" ")[1]) + ",");
+                    sb.append(getManageList().addProduct(line.split(" ")[1]) + ",");
 
-                }
-                else if (line.split(":")[0].equals("review/userId")) {
+                } else if (line.split(":")[0].equals("review/userId")) {
                     index++;
-                    sb.insert(0, manageList.addUser(line.split(" ")[1]) + ",");
+                    sb.insert(0, getManageList().addUser(line.split(" ")[1]) + ",");
 
-                }
-                else if (line.split(":")[0].equals("review/score")) {
+                } else if (line.split(":")[0].equals("review/score")) {
                     index++;
                     sb.append(line.split(" ")[1]);
                 }
@@ -70,15 +65,30 @@ class TransformData
                 }
             }
 
-            manageList.setTotalIndexes(totalIndexes);
+            getManageList().setTotalIndexes(totalIndexes);
 
             br.close();
             bw.close();
             fr.close();
             fw.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             logger.error("Error opening file, error: " + e);
         }
+    }
+
+    public String getFilenameOutput() {
+        return filenameOutput;
+    }
+
+    public void setFilenameOutput(String filenameOutput) {
+        this.filenameOutput = filenameOutput;
+    }
+
+    public ManageList getManageList() {
+        return manageList;
+    }
+
+    public void setManageList(ManageList manageList) {
+        this.manageList = manageList;
     }
 }

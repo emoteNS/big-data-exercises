@@ -5,8 +5,7 @@ import java.util.HashMap;
 /**
  * Created by AMDA on 30/03/2017.
  */
-class ManageList
-{
+class ManageList {
     private HashMap<String, Long> productList;
     private HashMap<String, Long> userList;
     private HashMap<Long, String> invertProductList;
@@ -16,7 +15,7 @@ class ManageList
     private long userIndex;
     private long totalIndexes;
 
-    public ManageList(){
+    public ManageList() {
         setProductList(new HashMap<String, Long>());
         setUserList(new HashMap<String, Long>());
 
@@ -24,29 +23,26 @@ class ManageList
         setInvertUserList(new HashMap<Long, String>());
     }
 
-    public long addProduct( String idProd )
-    {
+    public long addProduct(String idProd) {
 
-        if( !getProductList().containsKey( idProd ) ){
+        if (!getProductList().containsKey(idProd)) {
             setProductIndex(getProductList().size() + 1);
             getProductList().put(idProd, getProductIndex());
             getInvertProductList().put(getProductIndex(), idProd);
-        }
-        else {
+        } else {
             setProductIndex(getProductList().get(idProd));
         }
 
         return getProductIndex();
     }
 
-    public long addUser( String idUser ){
+    public long addUser(String idUser) {
 
-        if( !getUserList().containsKey(idUser) ){
+        if (!getUserList().containsKey(idUser)) {
             setUserIndex(getUserList().size() + 1);
             getUserList().put(idUser, getUserIndex());
             getInvertUserList().put(getUserIndex(), idUser);
-        }
-        else {
+        } else {
             setUserIndex(getUserList().get(idUser));
         }
 

@@ -36,24 +36,23 @@ public class MovieRecommender {
 
     String filePath;
 
-    public MovieRecommender(String filePath){
+    public MovieRecommender(String filePath) {
         //Transform Data With the path of output file
         transformData = new TransformData();
 
         //First we set the output file, before to start the parsing
-        transformData.setOutputFile( filePath );
+        transformData.setOutputFile(filePath);
 
         //Function who calls the convertion of an input file
         transformData.transformToPreferenceFile(filePath);
 
         //Assign result Maps to class variable
-        manageList = transformData.manageList;
+        manageList = transformData.getManageList();
 
         //Initializing model with the output file
         try {
-            model = new FileDataModel(new File(transformData.filenameOutput));
-        }
-        catch (IOException e){
+            model = new FileDataModel(new File(transformData.getFilenameOutput()));
+        } catch (IOException e) {
             logger.error("Datamodel couldn't be created, error: " + e);
         }
 
@@ -64,46 +63,42 @@ public class MovieRecommender {
         return manageList.getTotalIndexes();
     }
 
-    public long getTotalProducts(){
-        try{
-            return (long)model.getNumItems();
-        }
-        catch (TasteException e){
+    public long getTotalProducts() {
+        try {
+            return (long) model.getNumItems();
+        } catch (TasteException e) {
             logger.error("Error retrieving total reviews, error: " + e);
         }
         return 0;
     }
 
-    public long getTotalUsers(){
-        try{
-            return (long)model.getNumUsers();
-        }
-        catch (TasteException e){
+    public long getTotalUsers() {
+        try {
+            return (long) model.getNumUsers();
+        } catch (TasteException e) {
             logger.error("Error retrieving total users, error: " + e);
         }
         return 0;
     }
 
-    public List<String> getRecommendationsForUser(String user){
+    public List<String> getRecommendationsForUser(String user) {
 
         List<String> recommendationsList = new ArrayList<String>();
 
-        try{
+        try {
             //Data from recommendation
             similarity = new PearsonCorrelationSimilarity(model);
             neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
             recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
 
-            long idUser = (long) manageList.getUserList().get( user );
+            long idUser = manageList.getUserList().get(user);
 
-            List recommends = recommender.recommend( idUser, 3);
+            List recommends = recommender.recommend(idUser, 3);
 
-            for(Object re : recommends)
-            {
-                recommendationsList.add( manageList.getInvertProductList().get( ((RecommendedItem) re).getItemID() ) );
+            for (Object re : recommends) {
+                recommendationsList.add(manageList.getInvertProductList().get(((RecommendedItem) re).getItemID()));
             }
-        }
-        catch (TasteException e){
+        } catch (TasteException e) {
             logger.error("Error building movie recommender, error: " + e);
         }
 
