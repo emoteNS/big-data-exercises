@@ -70,7 +70,7 @@ class TransformData
                 }
             }
 
-            manageList.totalIndexes = totalIndexes;
+            manageList.setTotalIndexes(totalIndexes);
 
             br.close();
             bw.close();
