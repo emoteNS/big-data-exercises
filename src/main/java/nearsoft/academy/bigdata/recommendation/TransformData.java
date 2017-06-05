@@ -2,8 +2,11 @@ package nearsoft.academy.bigdata.recommendation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Created by AMDA on 30/03/2017.
