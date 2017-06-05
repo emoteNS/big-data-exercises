@@ -1,26 +1,27 @@
 package nearsoft.academy.bigdata.recommendation;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by AMDA on 30/03/2017.
  */
 class ManageList {
-    private HashMap<String, Long> productList;
-    private HashMap<String, Long> userList;
-    private HashMap<Long, String> invertProductList;
-    private HashMap<Long, String> invertUserList;
+    private Map<String, Long> productList;
+    private Map<String, Long> userList;
+    private Map<Long, String> invertProductList;
+    private Map<Long, String> invertUserList;
 
     private long productIndex;
     private long userIndex;
     private long totalIndexes;
 
     public ManageList() {
-        setProductList(new HashMap<String, Long>());
-        setUserList(new HashMap<String, Long>());
+        productList = new HashMap<String, Long>();
+        userList = new HashMap<String, Long>();
 
-        setInvertProductList(new HashMap<Long, String>());
-        setInvertUserList(new HashMap<Long, String>());
+        invertProductList = new HashMap<Long, String>();
+        invertUserList = new HashMap<Long, String>();
     }
 
     public long addProduct(String idProd) {
@@ -49,35 +50,35 @@ class ManageList {
         return getUserIndex();
     }
 
-    public HashMap<String, Long> getProductList() {
+    public Map<String, Long> getProductList() {
         return productList;
     }
 
-    public void setProductList(HashMap<String, Long> productList) {
+    public void setProductList(Map<String, Long> productList) {
         this.productList = productList;
     }
 
-    public HashMap<String, Long> getUserList() {
+    public Map<String, Long> getUserList() {
         return userList;
     }
 
-    public void setUserList(HashMap<String, Long> userList) {
+    public void setUserList(Map<String, Long> userList) {
         this.userList = userList;
     }
 
-    public HashMap<Long, String> getInvertProductList() {
+    public Map<Long, String> getInvertProductList() {
         return invertProductList;
     }
 
-    public void setInvertProductList(HashMap<Long, String> invertProductList) {
+    public void setInvertProductList(Map<Long, String> invertProductList) {
         this.invertProductList = invertProductList;
     }
 
-    public HashMap<Long, String> getInvertUserList() {
+    public Map<Long, String> getInvertUserList() {
         return invertUserList;
     }
 
-    public void setInvertUserList(HashMap<Long, String> invertUserList) {
+    public void setInvertUserList(Map<Long, String> invertUserList) {
         this.invertUserList = invertUserList;
     }
 
